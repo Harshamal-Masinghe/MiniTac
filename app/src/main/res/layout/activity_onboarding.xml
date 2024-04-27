@@ -5,14 +5,14 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/C3"
+    android:background="@color/C2"
     tools:context=".OnboardingActivity">
 
     <Button
         android:id="@+id/button"
         android:layout_width="301dp"
         android:layout_height="60dp"
-        android:backgroundTint="@color/C2"
+        android:backgroundTint="@color/C1"
         android:text="Get Start"
         android:textColor="@color/white"
         android:textSize="20sp"

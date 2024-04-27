@@ -9,6 +9,24 @@
     tools:context=".GameActivity">
 
     <TextView
+        android:id="@+id/record_time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Record Time: "
+        android:textColor="@color/C2"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/current_time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Current Time: "
+        android:textColor="@color/C2"
+        android:textSize="20sp" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

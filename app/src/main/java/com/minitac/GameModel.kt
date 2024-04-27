@@ -1,7 +1,6 @@
 package com.minitac
 
 import kotlin.random.Random
-
 data class GameModel (
     var gameId : String = "-1",
     var filledPos : MutableList<String> = mutableListOf("","","","","","","","",""),

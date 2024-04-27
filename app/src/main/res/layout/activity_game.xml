@@ -100,9 +100,6 @@
             android:id="@+id/btn_8"
             tools:text="X"/>
 
-
-
-
     </GridLayout>
 
     <Button
@@ -112,13 +109,5 @@
         android:layout_margin="20dp"
         android:text="Start game"
         android:id="@+id/start_game_btn"/>
-
-
-
-
-
-
-
-
 
 </LinearLayout>

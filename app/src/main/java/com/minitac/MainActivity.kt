@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
         binding.playOfflineBtn.setOnClickListener {
             createOfflineGame()
         }
-
     }
 
     fun createOfflineGame(){

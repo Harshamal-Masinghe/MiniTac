@@ -68,10 +68,8 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
                         else "DRAW"
                     }
                 }
-
         }
     }
-
 
     fun startGame(){
         gameModel?.apply {
@@ -116,10 +114,8 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
             if( filledPos.none(){ it.isEmpty() }){
                 gameStatus = GameStatus.FINISHED
             }
-
             updateGameData(this)
         }
-
     }
 
     override fun onClick(v: View?) {
@@ -136,7 +132,6 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
                 checkForWinner()
                 updateGameData(this)
             }
-
         }
     }
 }

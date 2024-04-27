@@ -25,7 +25,7 @@
         android:textSize="32sp"
         android:layout_margin="10dp"
         android:textStyle="bold"
-        android:text="Game not started"
+        android:text="@string/game_not_started"
         android:letterSpacing="0.04"
         android:textColor="#009688"/>
 
@@ -107,7 +107,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="20dp"
-        android:text="Start game"
+        android:text="@string/start_game"
         android:id="@+id/start_game_btn"/>
 
 </LinearLayout>

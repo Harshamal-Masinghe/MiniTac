@@ -14,6 +14,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.minitac.databinding.ActivityGameBinding
 import android.os.CountDownTimer
+import android.os.Handler
+import android.os.Looper
 import java.util.concurrent.TimeUnit
 
 class GameActivity : AppCompatActivity(), View.OnClickListener {
@@ -92,7 +94,7 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
                     }
                     GameStatus.INPROGRESS ->{
                         binding.startGameBtn.visibility = View.INVISIBLE
-                        " Turn Of " + currentPlayer
+                        " Turn Of  " + currentPlayer
                     }
                     GameStatus.FINISHED ->{
                         if(winner.isNotEmpty()) winner + " Won"
@@ -126,7 +128,8 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
             updateGameData(
                 GameModel(
                     gameId = gameId,
-                    gameStatus = GameStatus.INPROGRESS
+                    gameStatus = GameStatus.INPROGRESS,
+                    currentPlayer = "X" // User always starts the game
                 )
             )
         }
@@ -178,14 +181,72 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
             }
             //game is in progress
             val clickedPos =(v?.tag  as String).toInt()
-            if(filledPos[clickedPos].isEmpty()){
+            if(filledPos[clickedPos].isEmpty() && currentPlayer == "X"){
                 filledPos[clickedPos] = currentPlayer
-                currentPlayer = if(currentPlayer=="X") "O" else "X"
+                currentPlayer = "O"
                 checkForWinner()
                 updateGameData(this)
+                // Delay the app's move by 2 seconds
+                Handler(Looper.getMainLooper()).postDelayed({
+                    appMove()
+                }, 500) // Delay of 0.5 seconds
             }
         }
     }
+
+    private fun appMove() {
+        gameModel?.apply {
+            if(gameStatus != GameStatus.INPROGRESS) {
+                return
+            }
+
+            // Check if the user is about to win in the next move
+            val userWinningPos = getUserWinningPos()
+            if(userWinningPos != -1) {
+                // If the user is about to win, block the user by placing the app's move in that position
+                filledPos[userWinningPos] = currentPlayer
+            } else {
+                // If the user is not about to win, select the first empty position for the app's move
+                val appPos = filledPos.indexOfFirst { it.isEmpty() }
+                if(appPos != -1) {
+                    filledPos[appPos] = currentPlayer
+                }
+            }
+
+            currentPlayer = "X"
+            checkForWinner()
+            updateGameData(this)
+        }
+    }
+
+    private fun getUserWinningPos(): Int {
+    val winningPos = arrayOf(
+        intArrayOf(0,1,2),
+        intArrayOf(3,4,5),
+        intArrayOf(6,7,8),
+        intArrayOf(0,3,6),
+        intArrayOf(1,4,7),
+        intArrayOf(2,5,8),
+        intArrayOf(0,4,8),
+        intArrayOf(2,4,6),
+    )
+
+    gameModel?.filledPos?.let { filledPos ->
+        for (i in winningPos) {
+            if (filledPos[i[0]] == "X" && filledPos[i[1]] == "X" && filledPos[i[2]].isEmpty()) {
+                return i[2]
+            }
+            if (filledPos[i[0]] == "X" && filledPos[i[2]] == "X" && filledPos[i[1]].isEmpty()) {
+                return i[1]
+            }
+            if (filledPos[i[1]] == "X" && filledPos[i[2]] == "X" && filledPos[i[0]].isEmpty()) {
+                return i[0]
+            }
+        }
+    }
+
+    return -1
+}
 
     private fun updateRecordTime() {
         val recordTime = sharedPreferences.getLong("currentTime", 0)

@@ -88,11 +88,11 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
                         "Game ID :"+ gameId
                     }
                     GameStatus.JOINED ->{
-                        "Click on start game"
+                        "Click On Start Game"
                     }
                     GameStatus.INPROGRESS ->{
                         binding.startGameBtn.visibility = View.INVISIBLE
-                        currentPlayer + " turn"
+                        " Turn Of " + currentPlayer
                     }
                     GameStatus.FINISHED ->{
                         if(winner.isNotEmpty()) winner + " Won"

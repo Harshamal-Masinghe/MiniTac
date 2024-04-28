@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/C4"
+    android:background="@color/black"
     android:orientation="vertical"
     tools:context=".GameActivity">
 
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/record_time"
-        android:textColor="@color/C2"
+        android:textColor="@color/C4"
         android:textSize="20sp" />
 
     <TextView
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/current_time"
-        android:textColor="@color/C2"
+        android:textColor="@color/C4"
         android:textSize="20sp" />
 
     <TextView
@@ -33,7 +33,7 @@
         android:layout_margin="8dp"
         android:padding="8dp"
         android:text="@string/app_name"
-        android:textColor="@color/C2"
+        android:textColor="@color/C3"
         android:textSize="28sp"
         android:textStyle="bold" />
 
@@ -163,7 +163,7 @@
         android:layout_height="61dp"
         android:layout_gravity="center"
         android:layout_margin="20dp"
-        android:backgroundTint="#DF1F60"
+        android:backgroundTint="@color/C4"
         android:text="@string/start_game"
         android:textAlignment="center"
         android:textColor="@color/white"

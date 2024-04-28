@@ -5,14 +5,14 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/C2"
+    android:background="@color/C1"
     tools:context=".OnboardingActivity">
 
     <Button
         android:id="@+id/button"
         android:layout_width="301dp"
         android:layout_height="60dp"
-        android:backgroundTint="@color/C1"
+        android:backgroundTint="@color/C4"
         android:text="@string/get_start"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -34,14 +34,14 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.739"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/img" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="217dp"
-        android:layout_height="81dp"
-        android:layout_marginBottom="40dp"
+        android:layout_width="268dp"
+        android:layout_height="93dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="sans-serif-condensed-medium"
         android:text="@string/discover_the_world_of_mini_tac"
         android:textAlignment="center"

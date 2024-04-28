@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/C2"
+    android:background="@color/C1"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -15,7 +15,7 @@
         android:layout_marginTop="108dp"
         android:padding="8dp"
         android:text="@string/app_name"
-        android:textColor="@color/white"
+        android:textColor="@color/C3"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,7 +27,7 @@
         android:id="@+id/play_offline_btn"
         android:layout_width="244dp"
         android:layout_height="55dp"
-        android:backgroundTint="@color/C1"
+        android:backgroundTint="@color/C4"
         android:padding="10dp"
         android:text="@string/play"
         android:textColor="@color/white"

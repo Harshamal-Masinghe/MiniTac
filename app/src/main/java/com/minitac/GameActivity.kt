@@ -186,7 +186,7 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
                 currentPlayer = "O"
                 checkForWinner()
                 updateGameData(this)
-                // Delay the app's move by 2 seconds
+                // Delay the app's move by 0.5 seconds
                 Handler(Looper.getMainLooper()).postDelayed({
                     appMove()
                 }, 500) // Delay of 0.5 seconds
@@ -200,16 +200,23 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
                 return
             }
 
-            // Check if the user is about to win in the next move
-            val userWinningPos = getUserWinningPos()
-            if(userWinningPos != -1) {
-                // If the user is about to win, block the user by placing the app's move in that position
-                filledPos[userWinningPos] = currentPlayer
+            // Check if the app can win in the next move
+            val appWinningPos = getAppWinningPos()
+            if(appWinningPos != -1) {
+                // If the app can win, prioritize it over blocking the user's winning chance
+                filledPos[appWinningPos] = currentPlayer
             } else {
-                // If the user is not about to win, select the first empty position for the app's move
-                val appPos = filledPos.indexOfFirst { it.isEmpty() }
-                if(appPos != -1) {
-                    filledPos[appPos] = currentPlayer
+                // If the app can't win, check if the user is about to win in the next move
+                val userWinningPos = getUserWinningPos()
+                if(userWinningPos != -1) {
+                    // If the user is about to win, block the user by placing the app's move in that position
+                    filledPos[userWinningPos] = currentPlayer
+                } else {
+                    // If the user is not about to win, select the first empty position for the app's move
+                    val appPos = filledPos.indexOfFirst { it.isEmpty() }
+                    if(appPos != -1) {
+                        filledPos[appPos] = currentPlayer
+                    }
                 }
             }
 
@@ -219,34 +226,63 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun getUserWinningPos(): Int {
-    val winningPos = arrayOf(
-        intArrayOf(0,1,2),
-        intArrayOf(3,4,5),
-        intArrayOf(6,7,8),
-        intArrayOf(0,3,6),
-        intArrayOf(1,4,7),
-        intArrayOf(2,5,8),
-        intArrayOf(0,4,8),
-        intArrayOf(2,4,6),
-    )
+    private fun getAppWinningPos(): Int {
+        val winningPos = arrayOf(
+            intArrayOf(0,1,2),
+            intArrayOf(3,4,5),
+            intArrayOf(6,7,8),
+            intArrayOf(0,3,6),
+            intArrayOf(1,4,7),
+            intArrayOf(2,5,8),
+            intArrayOf(0,4,8),
+            intArrayOf(2,4,6),
+        )
 
-    gameModel?.filledPos?.let { filledPos ->
-        for (i in winningPos) {
-            if (filledPos[i[0]] == "X" && filledPos[i[1]] == "X" && filledPos[i[2]].isEmpty()) {
-                return i[2]
-            }
-            if (filledPos[i[0]] == "X" && filledPos[i[2]] == "X" && filledPos[i[1]].isEmpty()) {
-                return i[1]
-            }
-            if (filledPos[i[1]] == "X" && filledPos[i[2]] == "X" && filledPos[i[0]].isEmpty()) {
-                return i[0]
+        gameModel?.filledPos?.let { filledPos ->
+            for (i in winningPos) {
+                if (filledPos[i[0]] == "O" && filledPos[i[1]] == "O" && filledPos[i[2]].isEmpty()) {
+                    return i[2]
+                }
+                if (filledPos[i[0]] == "O" && filledPos[i[2]] == "O" && filledPos[i[1]].isEmpty()) {
+                    return i[1]
+                }
+                if (filledPos[i[1]] == "O" && filledPos[i[2]] == "O" && filledPos[i[0]].isEmpty()) {
+                    return i[0]
+                }
             }
         }
+
+        return -1
     }
 
-    return -1
-}
+    private fun getUserWinningPos(): Int {
+        val winningPos = arrayOf(
+            intArrayOf(0,1,2),
+            intArrayOf(3,4,5),
+            intArrayOf(6,7,8),
+            intArrayOf(0,3,6),
+            intArrayOf(1,4,7),
+            intArrayOf(2,5,8),
+            intArrayOf(0,4,8),
+            intArrayOf(2,4,6),
+        )
+
+        gameModel?.filledPos?.let { filledPos ->
+            for (i in winningPos) {
+                if (filledPos[i[0]] == "X" && filledPos[i[1]] == "X" && filledPos[i[2]].isEmpty()) {
+                    return i[2]
+                }
+                if (filledPos[i[0]] == "X" && filledPos[i[2]] == "X" && filledPos[i[1]].isEmpty()) {
+                    return i[1]
+                }
+                if (filledPos[i[1]] == "X" && filledPos[i[2]] == "X" && filledPos[i[0]].isEmpty()) {
+                    return i[0]
+                }
+            }
+        }
+
+        return -1
+    }
 
     private fun updateRecordTime() {
         val recordTime = sharedPreferences.getLong("currentTime", 0)

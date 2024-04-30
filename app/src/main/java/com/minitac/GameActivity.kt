@@ -33,6 +33,8 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
 
     private var timer: CountDownTimer? = null
 
+    private var millisUntilFinished: Long = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGameBinding.inflate(layoutInflater)
@@ -117,6 +119,7 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
             // Start the timer when the game starts
             timer = object : CountDownTimer(Long.MAX_VALUE, 1000) {
                 override fun onTick(millisUntilFinished: Long) {
+                    this@GameActivity.millisUntilFinished = millisUntilFinished
                     val elapsedSeconds = (Long.MAX_VALUE - millisUntilFinished) / 1000
                     val hours = TimeUnit.SECONDS.toHours(elapsedSeconds)
                     val minutes = TimeUnit.SECONDS.toMinutes(elapsedSeconds) % 60
@@ -172,6 +175,16 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
                     gameStatus = GameStatus.FINISHED
                     winner = filledPos[i[0]]
                     timer?.cancel()
+                    // If the user has won the game, save the current time to SharedPreferences only if it's less than the record time
+                    if (winner == "X") {
+                        val elapsedSeconds = (Long.MAX_VALUE - this@GameActivity.millisUntilFinished) / 1000
+                        val recordTime = sharedPreferences.getLong("recordTime", Long.MAX_VALUE)
+                        if (elapsedSeconds < recordTime) {
+                            val editor = sharedPreferences.edit()
+                            editor.putLong("recordTime", elapsedSeconds)
+                            editor.apply()
+                        }
+                    }
                 }
             }
 

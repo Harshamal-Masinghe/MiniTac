@@ -43,6 +43,14 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
         recordTimeTextView = findViewById(R.id.record_time_text)
         currentTimeTextView = findViewById(R.id.current_time_text)
 
+        // Check if it's the first time the app is launched
+        if (!sharedPreferences.contains("recordTime")) {
+            // If it is, save the current time as the record time
+            val editor = sharedPreferences.edit()
+            editor.putLong("recordTime", currentTime)
+            editor.apply()
+        }
+
         binding.btn0.setOnClickListener(this)
         binding.btn1.setOnClickListener(this)
         binding.btn2.setOnClickListener(this)
@@ -114,10 +122,13 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
                     val minutes = TimeUnit.SECONDS.toMinutes(elapsedSeconds) % 60
                     val seconds = elapsedSeconds % 60
                     currentTimeTextView.text = String.format(Locale.getDefault(), "Current Time: %02d : %02d : %02d", hours, minutes, seconds)
-                    // Save the current time to SharedPreferences
-                    val editor = sharedPreferences.edit()
-                    editor.putLong("currentTime", elapsedSeconds)
-                    editor.apply()
+                    // Save the current time to SharedPreferences only if it's less than the record time
+                    val recordTime = sharedPreferences.getLong("recordTime", Long.MAX_VALUE)
+                    if (elapsedSeconds < recordTime) {
+                        val editor = sharedPreferences.edit()
+                        editor.putLong("recordTime", elapsedSeconds)
+                        editor.apply()
+                    }
                 }
 
                 override fun onFinish() {
@@ -285,7 +296,7 @@ class GameActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun updateRecordTime() {
-        val recordTime = sharedPreferences.getLong("currentTime", 0)
+        val recordTime = sharedPreferences.getLong("recordTime", Long.MAX_VALUE)
         val hours = TimeUnit.SECONDS.toHours(recordTime)
         val minutes = TimeUnit.SECONDS.toMinutes(recordTime) % 60
         val seconds = recordTime % 60

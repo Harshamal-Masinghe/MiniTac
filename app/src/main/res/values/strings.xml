@@ -1,11 +1,15 @@
 <resources>
     <string name="app_name">Mini Tac</string>
+
     <string name="game_not_started">Game Not Started</string>
+
     <string name="start_game">Start game</string>
+    <string name="get_start">Get Start</string>
     <string name="play">Play</string>
+
     <string name="record_time">Record Time:</string>
     <string name="current_time">Current Time:</string>
-    <string name="mini_tac_disc">Mini tac Disc</string>
-    <string name="get_start">Get Start</string>
-    <string name="discover_the_world_of_mini_tac">Welcome to Mini Tac!  A brain-boosting twist on Tic Tac Toe, Dive in, challenge friends, and enjoy ad-free fun! crafted by Harsha.</string>
+
+    <string name="img_disc">Mini tac Disc</string>
+    <string name="app_wellcome_text">Welcome to Mini Tac!  A brain-boosting twist on Tic Tac Toe, Dive in, and enjoy ad-free fun! crafted by Harsha.</string>
 </resources>

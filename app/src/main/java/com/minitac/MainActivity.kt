@@ -15,11 +15,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.playOfflineBtn.setOnClickListener {
-            createOfflineGame()
+            createGame()
         }
     }
 
-    fun createOfflineGame(){
+    fun createGame(){
         GameData.saveGameModel(
             GameModel(
                 gameStatus = GameStatus.JOINED
